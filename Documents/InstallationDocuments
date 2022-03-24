@@ -1,0 +1,346 @@
+CREATE DATABASE sneakerbot;
+
+CREATE USER sneakerbot WITH ENCRYPTED PASSWORD 'password;
+GRANT ALL PRIVILEGES ON DATABASE sneakerbot TO sneakerbot;
+
+
+sunilkumar@SUNILs-MacBook-Pro bin % psql -U postgres  
+Password for user postgres: 
+psql (14.2)
+Type "help" for help.
+
+sunilkumar@SUNILs-MacBook-Pro SneakerBot % npx knex migrate:latest
+Using environment: local
+[
+  {
+    sql: 'select * from information_schema.tables where table_name = ? and table_schema = current_schema()',
+    bindings: [ 'knex_migrations' ],
+    output: [Function: output]
+  }
+]
+[
+  {
+    sql: 'create table "knex_migrations" ("id" serial primary key, "name" varchar(255), "batch" integer, "migration_time" timestamptz)',
+    bindings: []
+  }
+]
+[
+  {
+    sql: 'select * from information_schema.tables where table_name = ? and table_schema = current_schema()',
+    bindings: [ 'knex_migrations_lock' ],
+    output: [Function: output]
+  }
+]
+[
+  {
+    sql: 'create table "knex_migrations_lock" ("index" serial primary key, "is_locked" integer)',
+    bindings: []
+  }
+]
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [],
+  __knexQueryUid: 'S-nXgJLMovwyC3607HZ7l',
+  sql: 'select * from "knex_migrations_lock"'
+}
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 0 ],
+  __knexQueryUid: 'Eqow3BysGTHAtxWzsyzIh',
+  sql: 'insert into "knex_migrations_lock" ("is_locked") values (?)',
+  returning: undefined
+}
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [],
+  __knexQueryUid: 'Ff1scFbscnCEjqLGLQa2R',
+  sql: 'select "name" from "knex_migrations" order by "id" asc'
+}
+{
+  method: 'update',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 0 ],
+  __knexQueryUid: 'JNRrWg1VVK30iozyoFbkW',
+  sql: 'update "knex_migrations_lock" set "is_locked" = ? where "is_locked" = ?',
+  returning: undefined
+}
+[
+  {
+    sql: 'select * from information_schema.tables where table_name = ? and table_schema = current_schema()',
+    bindings: [ 'knex_migrations' ],
+    output: [Function: output]
+  }
+]
+[
+  {
+    sql: 'select * from information_schema.tables where table_name = ? and table_schema = current_schema()',
+    bindings: [ 'knex_migrations_lock' ],
+    output: [Function: output]
+  }
+]
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [],
+  __knexQueryUid: '_75cEx49P_-HMAR4YQMWv',
+  sql: 'select * from "knex_migrations_lock"'
+}
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [],
+  __knexQueryUid: 'm_M8V63BGVMdTsirGTLQL',
+  sql: 'select "name" from "knex_migrations" order by "id" asc'
+}
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [],
+  __knexQueryUid: 'x3WCIfsmyLskkvagC923S',
+  sql: 'select max("batch") as "max_batch" from "knex_migrations"'
+}
+[
+  {
+    sql: `create table "sites" ("id" serial primary key, "name" varchar(255) not null, "created_at" timestamptz default CURRENT_TIMESTAMP, "updated_at" timestamptz default CURRENT_TIMESTAMP, "is_deleted" boolean default '0')`,
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.253Z, '20210101021207_sites.js' ],
+  __knexQueryUid: 'l5oYZrS0xeW_Nre2dEhEM',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: `create type "address_types" as enum ('billing', 'shipping')`,
+    bindings: []
+  },
+  {
+    sql: `create table "addresses" ("id" serial primary key, "type" "address_types" not null, "first_name" varchar(255) not null, "last_name" varchar(255) not null, "address_line_1" varchar(255) not null, "address_line_2" varchar(255) not null, "city" varchar(255) not null, "state" varchar(255) not null, "postal_code" varchar(255) not null, "country" varchar(255) not null, "email_address" varchar(255) not null, "phone_number" varchar(255) not null, "created_at" timestamptz default CURRENT_TIMESTAMP, "updated_at" timestamptz default CURRENT_TIMESTAMP, "is_deleted" boolean default '0')`,
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.267Z, '20210101021215_addresses.js' ],
+  __knexQueryUid: '1kTuJcEGdqdxf9PDxGZi4',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: `create table "proxies" ("id" serial primary key, "ip_address" varchar(255) not null, "port" integer, "protocol" varchar(255) not null, "username" varchar(255), "password" varchar(255), "has_been_used" boolean default '0', "created_at" timestamptz default CURRENT_TIMESTAMP, "updated_at" timestamptz default CURRENT_TIMESTAMP, "is_deleted" boolean default '0')`,
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.272Z, '20210101021227_proxies.js' ],
+  __knexQueryUid: '4oWgz0iZV_qS026m0ex04',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: `create table "tasks" ("id" serial primary key, "site_id" integer not null, "url" varchar(255) not null, "style_index" integer not null, "size" decimal(8, 2) not null, "shipping_speed_index" integer not null, "billing_address_id" integer not null, "shipping_address_id" integer not null, "notification_email_address" varchar(255), "created_at" timestamptz default CURRENT_TIMESTAMP, "updated_at" timestamptz default CURRENT_TIMESTAMP, "is_deleted" boolean default '0')`,
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" add constraint "tasks_site_id_foreign" foreign key ("site_id") references "sites" ("id")',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" add constraint "tasks_billing_address_id_foreign" foreign key ("billing_address_id") references "addresses" ("id")',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" add constraint "tasks_shipping_address_id_foreign" foreign key ("shipping_address_id") references "addresses" ("id")',
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.284Z, '20210101021233_tasks.js' ],
+  __knexQueryUid: 'O80fitI-wD6e68ps7XXLK',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+migration 20210104150337_tasks.js did not return a promise
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.284Z, '20210104150337_tasks.js' ],
+  __knexQueryUid: 'mGxCJ0v4VSZixnGFJod32',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: `alter table "tasks" add column "auto_solve_captchas" boolean default '1'`,
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.286Z, '20210203221646_tasks.js' ],
+  __knexQueryUid: 'Qc1gjzr9NfBfUzwQX5eHu',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: 'alter table "tasks" alter column "style_index" drop default',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "style_index" drop not null',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "style_index" type integer using ("style_index"::integer)',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "size" drop default',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "size" drop not null',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "size" type varchar(255) using ("size"::varchar(255))',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "shipping_speed_index" drop default',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "shipping_speed_index" drop not null',
+    bindings: []
+  },
+  {
+    sql: 'alter table "tasks" alter column "shipping_speed_index" type integer using ("shipping_speed_index"::integer)',
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.296Z, '20210220005553_tasks.js' ],
+  __knexQueryUid: 'p35glh3BroOprmGmYUvsV',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+[
+  {
+    sql: 'alter table "tasks" add column "product_code" varchar(255) null',
+    bindings: []
+  }
+]
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 1, 2022-03-24T05:21:14.298Z, '20210530115556_tasks.js' ],
+  __knexQueryUid: 'pADPzFjglPqkA31-FfAYR',
+  sql: 'insert into "knex_migrations" ("batch", "migration_time", "name") values (?, ?, ?)',
+  returning: undefined
+}
+{
+  method: 'update',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ 0 ],
+  __knexQueryUid: 'VI7hWqt9lHPo7zwE26doo',
+  sql: 'update "knex_migrations_lock" set "is_locked" = ?',
+  returning: undefined
+}
+Batch 1 run: 8 migrations
+sunilkumar@SUNILs-MacBook-Pro SneakerBot % npx knex seed:run
+Using environment: local
+{
+  method: 'insert',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [
+    1,
+    'nike',
+    2,
+    'footsites',
+    3,
+    'shopify',
+    4,
+    'demandware',
+    5,
+    'supremenewyork'
+  ],
+  __knexQueryUid: 'xfDcgoGFpJ0fUoTNzQ0Q8',
+  sql: 'insert into "sites" ("id", "name") values (?, ?), (?, ?), (?, ?), (?, ?), (?, ?) on conflict ("id") do nothing returning *',
+  returning: '*'
+}
+Ran 1 seed files
+sunilkumar@SUNILs-MacBook-Pro SneakerBot % npm start
+
+> sneakerbot@1.0.0 start
+> node ./app.js
+
+App listening at port 8080
+{
+  method: 'raw',
+  sql: 'select 1+1 as result',
+  bindings: [],
+  options: {},
+  __knexQueryUid: 'fj9l60nzbkMBqLfxYld4r'
+}
+{
+  method: 'select',
+  options: {},
+  timeout: false,
+  cancelOnTimeout: false,
+  bindings: [ false, false ],
+  __knexQueryUid: 'Kt4NpgXFK9uOgPzJQuNwq',
+  sql: 'select * from "proxies" where "has_been_used" = ? and "is_deleted" = ? order by "created_at" desc'
+}
