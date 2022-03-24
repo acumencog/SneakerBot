@@ -344,3 +344,37 @@ App listening at port 8080
   __knexQueryUid: 'Kt4NpgXFK9uOgPzJQuNwq',
   sql: 'select * from "proxies" where "has_been_used" = ? and "is_deleted" = ? order by "created_at" desc'
 }
+
+
+sunilkumar@SUNILs-MacBook-Pro bin % curl --location -g --request POST 'localhost:8080/v1/addresses' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "type": "billing",
+    "first_name": "John",
+    "last_name": "Smith",
+    "address_line_1": "11 Broadway",
+    "address_line_2": "2nd Floor",
+    "city": "New York",
+    "state": "NY",
+    "postal_code": "10004",
+    "country": "US",
+    "email_address": "jsmith@gmail.com",
+    "phone_number": "1234567890"
+}'
+==>
+{"success":true,"message":"Address successfully created","data":{"id":1,"type":"billing","first_name":"John","last_name":"Smith","address_line_1":"11 Broadway","address_line_2":"2nd Floor","city":"New York","state":"NY","postal_code":"10004","country":"US","email_address":"jsmith@gmail.com","phone_number":"1234567890","created_at":"2022-03-24T06:18:50.422Z","updated_at":"2022-03-24T06:18:50.422Z","is_deleted":false}}%                                sunilkumar@SUNILs-MacBook-Pro bin % 
+
+sunilkumar@SUNILs-MacBook-Pro bin % curl --location -g --request POST 'localhost:8080/v1/tasks' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "site_id": 2,
+    "url": "https://www.footlocker.com/product/nike-air-vapormax-plus-mens/24453004.html",  
+    "style_index": 1,
+    "size": "8.5",
+    "shipping_speed_index": 0,
+    "billing_address_id": 1,
+    "shipping_address_id": 1,
+    "notification_email_address": "santu.sunil@gmail.com"
+}'
+==>
+{"success":true,"message":"Task successfully created","data":{"id":3,"site_id":2,"url":"https://www.footlocker.com/product/nike-air-vapormax-plus-mens/24453004.html","style_index":1,"size":"8.5","shipping_speed_index":0,"billing_address_id":1,"shipping_address_id":1,"notification_email_address":"santu.sunil@gmail.com","created_at":"2022-03-24T06:26:18.954Z","updated_at":"2022-03-24T06:26:18.954Z","is_deleted":false,"auto_solve_captchas":true,"product_code":null}}

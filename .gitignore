@@ -1,6 +1,7 @@
 node_modules
-.env*
+.env
 !.env.example
+!.env.local
 logs
 .vscode/
 !.vscode/launch.json
